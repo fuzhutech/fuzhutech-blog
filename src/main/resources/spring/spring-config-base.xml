@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!-- 配置连接池 -->
+    <context:property-placeholder location="classpath:spring/jdbc.properties"/>
+
+    <!-- 主库   -->
+    <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${master_driverUrl}"/>
+        <property name="username" value="${master_username}"/>
+        <property name="password" value="${master_password}"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="100"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxWait" value="60000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="filters" value="mergeStat"/>
+    </bean>
+
+    <!-- 从库
+    <bean id="slave01DataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+      destroy-method="close">
+      <property name="driverClassName" value="${slave_driver}"/>
+      <property name="url" value="${slave_driverUrl}"/>
+      <property name="username" value="${slave_username}"/>
+      <property name="password" value="${slave_password}"/>
+      <property name="initialSize" value="5"/>
+      <property name="maxActive" value="100"/>
+      <property name="minIdle" value="10"/>
+      <property name="maxWait" value="60000"/>
+      <property name="validationQuery" value="SELECT 'x' FROM DUAL"/>
+      <property name="testOnBorrow" value="true"/>
+      <property name="testOnReturn" value="true"/>
+      <property name="testWhileIdle" value="true"/>
+      <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+      <property name="minEvictableIdleTimeMillis" value="300000"/>
+      <property name="removeAbandoned" value="true"/>
+      <property name="removeAbandonedTimeout" value="1800"/>
+      <property name="logAbandoned" value="true"/>
+      <property name="filters" value="mergeStat"/>
+    </bean -->
+
+    <!-- 从库 -->
+    <bean id="slave02DataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${slave02_driver}"/>
+        <property name="url" value="${slave02_driverUrl}"/>
+        <property name="username" value="${slave02_username}"/>
+        <property name="password" value="${slave02_password}"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="100"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxWait" value="60000"/>
+        <property name="validationQuery" value="SELECT 'x' "/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="filters" value="mergeStat"/>
+    </bean>
+
+    <!-- 配置多数据源映射关系-->
+    <bean id="dynamicDataSource" class="com.fuzhutech.common.datasource.DynamicDataSource">
+        <!-- 设置多个数据源 -->
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <!-- 这个key需要和程序中的key一致 -->
+                <entry key="master" value-ref="masterDataSource"/>
+                <entry key="slave" value-ref="masterDataSource"/>
+                <entry key="oracle" value-ref="masterDataSource"/>
+            </map>
+        </property>
+        <!-- 设置默认的数据源，这里默认走写库 -->
+        <property name="defaultTargetDataSource" ref="masterDataSource"/>
+    </bean>
+
+</beans>

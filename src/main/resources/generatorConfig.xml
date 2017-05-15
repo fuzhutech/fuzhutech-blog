@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE generatorConfiguration    
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"    
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">    
+<generatorConfiguration>
+  <!--flat:该模型为每一张表只生成一个实体类。这个实体类包含表中的所有字段。**这种模型最简单，推荐使用  -->
+    <context id="Mysql" targetRuntime="com.fuzhutech.mybatis.generator.codegen.mybatis3.IntrospectedTableImpl"
+      defaultModelType="flat">
+    
+    <!-- 生成的Java文件的编码 -->
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <!-- 格式化java代码 -->
+    <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+    <!-- 格式化XML代码 -->
+    <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+    
+    <!--该属性，覆盖 false 合并true，默认为false;-->
+    <property name="mergeable" value="false"/>
+    
+    <!-- 注释 -->
+    <commentGenerator>
+      <!-- 是否取消注释 -->
+      <property name="suppressDate" value="true"/>
+      <!-- 是否生成注释代时间戳-->
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    
+    <!-- jdbc连接 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/site"
+      userId="root" password="root">
+    </jdbcConnection>
+    
+    <!-- 类型转换 -->
+    <javaTypeResolver type="com.fuzhutech.mybatis.generator.internal.types.JavaTypeResolverImpl">
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+    
+    <!-- 生成实体类地址 -->
+    <javaModelGenerator targetPackage="com.fuzhutech.pojo.blog" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true"/>
+      <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+    
+    <sqlMapGenerator targetPackage="com.fuzhutech.mapping.blog" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true"/>
+    </sqlMapGenerator>
+    
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.fuzhutech.dao.blog" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true"/>      
+    </javaClientGenerator>
+    
+    <table tableName="blog_user" domainObjectName="User" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false">
+      <property name="useColumnIndexes" value="true"/>
+      <generatedKey column="id" sqlStatement="Mysql" identity="true" type="post"/>
+    </table>
+  </context>
+</generatorConfiguration>

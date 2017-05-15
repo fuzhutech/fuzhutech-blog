@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!--开启自动代理功能 true使用CGLIB   -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 定义扫描根路径，不使用默认的扫描方式 -->
+    <!--context:component-scan base-package="com.fuzhutech" use-default-filters="false"-->
+    <context:component-scan base-package="com.fuzhutech">
+        <!--将Controller注解排除-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--context:exclude-filter type="regex" expression="com.fuzhutech.task.*"/-->
+        <!-- 扫描符合@Service类 -->
+        <!--context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/-->
+    </context:component-scan>
+
+    <import resource="spring/spring-config-base.xml" />
+    <import resource="spring/spring-config-transaction.xml" />
+    <import resource="spring/spring-config-mybatis.xml"/>
+
+</beans>

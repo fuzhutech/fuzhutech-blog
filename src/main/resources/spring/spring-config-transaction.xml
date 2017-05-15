@@ -1,0 +1,88 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+  
+  <!--定义事务管理器 -->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dynamicDataSource" />
+  </bean>
+  
+  <!--配置事务的传播特性,定义事务策略-->
+  <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <!-- 对增、删、改方法进行事务支持 -->
+      <tx:method name="add*" propagation="REQUIRED" />
+      <tx:method name="create*" propagation="REQUIRED" />
+      <tx:method name="save*" propagation="REQUIRED"/>
+      <tx:method name="edit*" propagation="REQUIRED" />
+      <tx:method name="update*" propagation="REQUIRED" />
+      <tx:method name="delete*" propagation="REQUIRED" />
+      <tx:method name="remove*" propagation="REQUIRED" />
+      <!-- 对查找方法进行只读事务 -->
+      <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+      <tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+      <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+      <!-- 对其它方法进行只读事务 -->
+      <!--<tx:method name="*" propagation="SUPPORTS" read-only="true" />-->
+    </tx:attributes>
+  </tx:advice>
+  
+  <bean id="transactionInterceptor" class="com.fuzhutech.common.datasource.TransactionAdvice">
+    <property name="transactionManager" ref="transactionManager" />
+    <!-- 配置事务属性 -->
+    <property name="transactionAttributes">
+      <props>
+        <prop key="*">PROPAGATION_REQUIRED</prop>
+        <prop key="delete*">PROPAGATION_REQUIRED</prop>
+        <prop key="add*">PROPAGATION_REQUIRED</prop>
+        <prop key="update*">PROPAGATION_REQUIRED</prop>
+        <prop key="save*">PROPAGATION_REQUIRED</prop>
+        <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+      </props>
+    </property>
+  </bean>
+  
+  <!--bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+    <property name="beanNames">
+      <list>
+        <value>*Dao</value>
+      </list>
+    </property>
+    <property name="interceptorNames">
+      <list>
+        <value>transactionInterceptor</value>
+      </list>
+    </property>
+  </bean-->
+  
+  <!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->
+  <tx:annotation-driven transaction-manager="transactionManager" />
+  
+  <!-- 配置切面 -->
+  <aop:config>
+    <!--pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型， 这里星号表明匹配所有返回类型。 com.abc.dao.*.*(..)表明匹配cn.itcast.mybatis.service包下的所有类的所有
+      方法 -->
+    <aop:pointcut id="service" expression="execution(* com.fuzhutech.service..*.*(..))"/>
+    
+    <!--将定义好的事务处理策略应用到上述的切入点 -->
+    <!--aop:advisor advice-ref="transactionAdvice" pointcut-ref="service"/-->
+    
+    <!-- 关键配置，切换数据源一定要比持久层代码更先执行（事务也算持久层代码） -->
+    <!-- 将切面应用到自定义的切面处理器上，-9999保证该切面优先级最高执行 -->
+    <!--aop:aspect ref="dataSourceAspect" order="-9999"> <aop:before method="before" pointcut-ref="service"
+      /> </aop:aspect-->
+    <!--aop:advisor advice-ref="transactionAdvice" pointcut-ref="service" order="2"/-->
+    <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="service" order="2"/>
+    <!--aop:advisor advice-ref="dataSourceAspect" pointcut-ref="service" order="-9999"/-->
+    <!--aop:advisor advice-ref="dataSourceAdvice" pointcut-ref="service" order="-9999"/-->
+  </aop:config>
+  
+</beans>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuzhutech.dao.blog.PostMapper">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.Post">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="excerpt" jdbcType="VARCHAR" property="excerpt" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="enable_comment" jdbcType="INTEGER" property="enableComment" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fuzhutech.pojo.blog.Post">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, excerpt, category_id, status, read_count, comment_count, enable_comment, 
+    user_id, user_name, nick_name, create_time, last_modify_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_post
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_post
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.Post">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_post (title, excerpt, category_id, 
+      status, read_count, comment_count, 
+      enable_comment, user_id, user_name, 
+      nick_name, create_time, last_modify_time, 
+      content)
+    values (#{title,jdbcType=VARCHAR}, #{excerpt,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{readCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+      #{enableComment,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Post">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="excerpt != null">
+        excerpt,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="enableComment != null">
+        enable_comment,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="excerpt != null">
+        #{excerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="enableComment != null">
+        #{enableComment,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.Post">
+    update blog_post
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="excerpt != null">
+        excerpt = #{excerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="enableComment != null">
+        enable_comment = #{enableComment,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fuzhutech.pojo.blog.Post">
+    update blog_post
+    set title = #{title,jdbcType=VARCHAR},
+      excerpt = #{excerpt,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      enable_comment = #{enableComment,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.Post">
+    update blog_post
+    set title = #{title,jdbcType=VARCHAR},
+      excerpt = #{excerpt,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      enable_comment = #{enableComment,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, excerpt, category_id, status, read_count, comment_count, enable_comment, 
+    user_id, user_name, nick_name, create_time, last_modify_time, content
+    from blog_post
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(id) count from blog_post
+  </select>
+  <select id="selectByPageInfo" parameterType="PageInfo" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_post inner join (select id from blog_post order by id desc limit #{offset}, #{rows}) t2 using(id)
+  </select>
+  <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
+    select count(id) count from blog_post
+  </select>
+  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Post" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_post
+    <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR} and 
+      </if>
+      <if test="excerpt != null">
+        excerpt = #{excerpt,jdbcType=VARCHAR} and 
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER} and 
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER} and 
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER} and 
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER} and 
+      </if>
+      <if test="enableComment != null">
+        enable_comment = #{enableComment,jdbcType=INTEGER} and 
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER} and 
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR} and 
+      </if>
+    </trim>
+  </select>
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.Post">
+    delete from blog_post
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR} and 
+      </if>
+      <if test="excerpt != null">
+        excerpt = #{excerpt,jdbcType=VARCHAR} and 
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER} and 
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER} and 
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER} and 
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER} and 
+      </if>
+      <if test="enableComment != null">
+        enable_comment = #{enableComment,jdbcType=INTEGER} and 
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER} and 
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR} and 
+      </if>
+    </where>
+  </delete>
+</mapper>

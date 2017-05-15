@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuzhutech.dao.blog.OptionsMapper">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.Options">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_options
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_options
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.Options">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_options (name, value)
+    values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Options">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_options
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.Options">
+    update blog_options
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.Options">
+    update blog_options
+    set name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, value
+    from blog_options
+  </select>
+  <select id="selectByPageInfo" parameterType="PageInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_options inner join (select id from blog_options order by id desc limit #{offset}, #{rows}) t2 using(id)
+  </select>
+  <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
+    select count(id) count from blog_options
+  </select>
+  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Options" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_options
+    <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR} and 
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR} and 
+      </if>
+    </trim>
+  </select>
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.Options">
+    delete from blog_options
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR} and 
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR} and 
+      </if>
+    </where>
+  </delete>
+</mapper>

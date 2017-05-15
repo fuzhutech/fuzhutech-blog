@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuzhutech.dao.blog.UploadMapper">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.Upload">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_nick_name" jdbcType="VARCHAR" property="userNickName" />
+    <result column="user_login_name" jdbcType="VARCHAR" property="userLoginName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, post_id, name, path, user_id, user_nick_name, user_login_name, create_time, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_upload
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_upload
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.Upload">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_upload (post_id, name, path, 
+      user_id, user_nick_name, user_login_name, 
+      create_time, last_modify_time)
+    values (#{postId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{userNickName,jdbcType=VARCHAR}, #{userLoginName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Upload">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_upload
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userNickName != null">
+        user_nick_name,
+      </if>
+      <if test="userLoginName != null">
+        user_login_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickName != null">
+        #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginName != null">
+        #{userLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.Upload">
+    update blog_upload
+    <set>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickName != null">
+        user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginName != null">
+        user_login_name = #{userLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.Upload">
+    update blog_upload
+    set post_id = #{postId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_nick_name = #{userNickName,jdbcType=VARCHAR},
+      user_login_name = #{userLoginName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, post_id, name, path, user_id, user_nick_name, user_login_name, create_time, 
+    last_modify_time
+    from blog_upload
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select count(id) count from blog_upload
+  </select>
+  <select id="selectByPageInfo" parameterType="PageInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_upload inner join (select id from blog_upload order by id desc limit #{offset}, #{rows}) t2 using(id)
+  </select>
+  <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
+    select count(id) count from blog_upload
+  </select>
+  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Upload" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_upload
+    <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER} and 
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR} and 
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR} and 
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER} and 
+      </if>
+      <if test="userNickName != null">
+        user_nick_name = #{userNickName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="userLoginName != null">
+        user_login_name = #{userLoginName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+      </if>
+    </trim>
+  </select>
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.Upload">
+    delete from blog_upload
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER} and 
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER} and 
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR} and 
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR} and 
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER} and 
+      </if>
+      <if test="userNickName != null">
+        user_nick_name = #{userNickName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="userLoginName != null">
+        user_login_name = #{userLoginName,jdbcType=VARCHAR} and 
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+      </if>
+    </where>
+  </delete>
+</mapper>
