@@ -4,7 +4,6 @@ package com.fuzhutech.service.blog.imp;
 import com.fuzhutech.common.service.impl.BaseServiceImpl;
 import com.fuzhutech.pojo.blog.User;
 import com.fuzhutech.service.blog.UserService;
-import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -25,7 +24,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String token =  formatter.format(user.getLastLoginTime());
         token = user.getId() + "," + token;
-        return Base64.encodeBase64String(token.getBytes(Charsets.UTF_8));
+        return Base64.encodeBase64String(org.apache.commons.codec.binary.StringUtils.getBytesUtf8(token));
     }
 
     @Override
@@ -33,11 +32,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         if(StringUtils.isEmpty(token))
             return  false;
 
-        String str = Base64.encodeBase64String(token.getBytes(Charsets.UTF_8));
+        String str = org.apache.commons.codec.binary.StringUtils.newStringUtf8(Base64.decodeBase64(token));
         int i = str.indexOf(',');
         String userId = str.substring(0, i);
-        String loginTime = str.substring(i);
-        logger.info("userID:{},loginTime:{}" , userId,loginTime);
+        String loginTime = str.substring(i+1);
 
         if (!StringUtils.isNumeric(userId))
             return false;
