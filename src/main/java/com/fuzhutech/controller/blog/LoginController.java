@@ -4,6 +4,7 @@ import com.fuzhutech.common.ResponseResult;
 import com.fuzhutech.pojo.blog.User;
 import com.fuzhutech.service.blog.UserService;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 
 // 登录退出
@@ -38,12 +40,27 @@ public class LoginController {
             logger.info("加密后密码：" + model.getPassword());
 
             List<User> userList = uerService.queryListByWhere(model);
-            if (userList.size() == 0)
+            if (userList.size() == 0) {
+                logger.info("userList.size() == 0");
                 return new ResponseResult(ResponseResult.FAILURE, null, "用户名或密码不正确");
+            }
+            User user = userList.get(0);
+            user.setLastLoginTime(new Date());
 
-            return new ResponseResult(ResponseResult.SUCCESS, userList.get(0));
+            //将最后登录时间更新到数据库
+            User record = new User();
+            record.setId(user.getId());
+            record.setLastLoginTime(user.getLastLoginTime());
+            this.uerService.updateSelective(record);
+
+            //创建token，保存在password字段供前台获取
+            String token = uerService.createToken(user);
+            user.setPassword(token);
+
+            return new ResponseResult(ResponseResult.SUCCESS, user);
 
         } catch (Exception ex) {
+            logger.info("发生错误：{}",ex.getMessage());
             return new ResponseResult(ResponseResult.FAILURE, null, ex.getMessage());
         }
     }
