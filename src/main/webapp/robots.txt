@@ -1,5 +1,5 @@
 # robots.txt
 User-agent: *
-Disallow:
 Disallow: /assets/
 Disallow: /ueditor/
+Sitemap: http://www.fuzhutech.com/sitemap.xml
