@@ -20,14 +20,14 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, excerpt, category_id, status, read_count, comment_count, enable_comment, 
+    id, title, excerpt, category_id, status, read_count, comment_count, enable_comment,
     user_id, user_name, nick_name, create_time, last_modify_time
   </sql>
   <sql id="Blob_Column_List">
     content
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -42,15 +42,15 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into blog_post (title, excerpt, category_id, 
-      status, read_count, comment_count, 
-      enable_comment, user_id, user_name, 
-      nick_name, create_time, last_modify_time, 
+    insert into blog_post (title, excerpt, category_id,
+      status, read_count, comment_count,
+      enable_comment, user_id, user_name,
+      nick_name, create_time, last_modify_time,
       content)
-    values (#{title,jdbcType=VARCHAR}, #{excerpt,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{readCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
-      #{enableComment,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+    values (#{title,jdbcType=VARCHAR}, #{excerpt,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{readCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER},
+      #{enableComment,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+      #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Post">
@@ -220,7 +220,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, title, excerpt, category_id, status, read_count, comment_count, enable_comment, 
+    select id, title, excerpt, category_id, status, read_count, comment_count, enable_comment,
     user_id, user_name, nick_name, create_time, last_modify_time, content
     from blog_post
   </select>
@@ -228,7 +228,7 @@
     select count(id) count from blog_post
   </select>
   <select id="selectByPageInfo" parameterType="PageInfo" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     from blog_post inner join (select id from blog_post order by id desc limit #{offset}, #{rows}) t2 using(id)
   </select>
@@ -236,53 +236,53 @@
     select count(id) count from blog_post
   </select>
   <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Post" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from blog_post
     <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
       <if test="id != null">
-        id = #{id,jdbcType=INTEGER} and 
+        id = #{id,jdbcType=INTEGER} and
       </if>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR} and 
+        title = #{title,jdbcType=VARCHAR} and
       </if>
       <if test="excerpt != null">
-        excerpt = #{excerpt,jdbcType=VARCHAR} and 
+        excerpt = #{excerpt,jdbcType=VARCHAR} and
       </if>
       <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=INTEGER} and 
+        category_id = #{categoryId,jdbcType=INTEGER} and
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER} and 
+        status = #{status,jdbcType=INTEGER} and
       </if>
       <if test="readCount != null">
-        read_count = #{readCount,jdbcType=INTEGER} and 
+        read_count = #{readCount,jdbcType=INTEGER} and
       </if>
       <if test="commentCount != null">
-        comment_count = #{commentCount,jdbcType=INTEGER} and 
+        comment_count = #{commentCount,jdbcType=INTEGER} and
       </if>
       <if test="enableComment != null">
-        enable_comment = #{enableComment,jdbcType=INTEGER} and 
+        enable_comment = #{enableComment,jdbcType=INTEGER} and
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER} and 
+        user_id = #{userId,jdbcType=INTEGER} and
       </if>
       <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR} and 
+        user_name = #{userName,jdbcType=VARCHAR} and
       </if>
       <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR} and 
+        nick_name = #{nickName,jdbcType=VARCHAR} and
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+        create_time = #{createTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="lastModifyTime != null">
-        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR} and 
+        content = #{content,jdbcType=LONGVARCHAR} and
       </if>
     </trim>
   </select>
@@ -290,47 +290,59 @@
     delete from blog_post
     <where>
       <if test="id != null">
-        id = #{id,jdbcType=INTEGER} and 
+        id = #{id,jdbcType=INTEGER} and
       </if>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR} and 
+        title = #{title,jdbcType=VARCHAR} and
       </if>
       <if test="excerpt != null">
-        excerpt = #{excerpt,jdbcType=VARCHAR} and 
+        excerpt = #{excerpt,jdbcType=VARCHAR} and
       </if>
       <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=INTEGER} and 
+        category_id = #{categoryId,jdbcType=INTEGER} and
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER} and 
+        status = #{status,jdbcType=INTEGER} and
       </if>
       <if test="readCount != null">
-        read_count = #{readCount,jdbcType=INTEGER} and 
+        read_count = #{readCount,jdbcType=INTEGER} and
       </if>
       <if test="commentCount != null">
-        comment_count = #{commentCount,jdbcType=INTEGER} and 
+        comment_count = #{commentCount,jdbcType=INTEGER} and
       </if>
       <if test="enableComment != null">
-        enable_comment = #{enableComment,jdbcType=INTEGER} and 
+        enable_comment = #{enableComment,jdbcType=INTEGER} and
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER} and 
+        user_id = #{userId,jdbcType=INTEGER} and
       </if>
       <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR} and 
+        user_name = #{userName,jdbcType=VARCHAR} and
       </if>
       <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR} and 
+        nick_name = #{nickName,jdbcType=VARCHAR} and
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP} and 
+        create_time = #{createTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="lastModifyTime != null">
-        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and 
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR} and 
+        content = #{content,jdbcType=LONGVARCHAR} and
       </if>
     </where>
   </delete>
+  <update id="updateCount" parameterType="com.fuzhutech.pojo.blog.Post">
+    update blog_post
+    <set>
+      <if test="readCount != null">
+        read_count = read_count + #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = comment_count + #{commentCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

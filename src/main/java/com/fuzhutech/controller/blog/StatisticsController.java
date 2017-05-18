@@ -47,6 +47,7 @@ public class StatisticsController {
         logger.info("Statistics getSingle");
         Statistics stat = new Statistics();
         stat.setTotalPosts(postService.selectAllCount());
+        //TODO:后期修改为表中字段
         stat.setTotalComments(commentService.selectAllCount());
 
         Options options = new Options();
