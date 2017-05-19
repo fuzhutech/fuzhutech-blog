@@ -5,8 +5,6 @@ import com.fuzhutech.dao.blog.PostMapper;
 import com.fuzhutech.pojo.blog.Post;
 import com.fuzhutech.service.blog.PostService;
 import com.fuzhutech.util.blog.JsoupUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,7 +12,7 @@ import java.util.Date;
 @Service
 public class PostServiceImpl extends BaseServiceImpl<Post> implements PostService {
 
-    private static Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
+    private static int excerptLength = 150;
 
     @Override
     public Integer add(Post record) {
@@ -52,8 +50,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements PostServic
     private void setExcerpt(Post record){
         String content = record.getContent();
         String cleanTxt = JsoupUtils.plainText(content);
-        int excerpt_length = 150;
-        record.setExcerpt(cleanTxt.length() > excerpt_length ? cleanTxt.substring(0, excerpt_length) : cleanTxt);
+        record.setExcerpt(cleanTxt.length() > excerptLength ? cleanTxt.substring(0, excerptLength) : cleanTxt);
     }
 
     @Override

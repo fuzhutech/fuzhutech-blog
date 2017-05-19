@@ -39,7 +39,6 @@ public class IndexController {
     @Autowired
     private CommentService commentService;
 
-    //private String host = "http://www.fuzhutech.com";
     private String host = "http://localhost:8080";
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

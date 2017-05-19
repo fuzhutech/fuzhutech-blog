@@ -11,13 +11,9 @@ import org.jsoup.select.Elements;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * html文本处理工具
- *
- * @author zhou
- */
+//html文本处理工具
 public class JsoupUtils {
-    private final static Whitelist content_filter = Whitelist.relaxed();
+    private static final Whitelist content_filter = Whitelist.relaxed();
 
     static {
         // 增加可信标签到白名单
@@ -28,6 +24,9 @@ public class JsoupUtils {
         content_filter.addAttributes("param", "name", "value");
         content_filter.addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen", "allowScriptAccess",
                 "flashvars", "name", "type", "pluginspage");
+    }
+
+    private JsoupUtils() {
     }
 
     //对用户输入内容进行过滤
@@ -47,7 +46,7 @@ public class JsoupUtils {
                 continue;
 
             if (isa) {
-                int question = link.indexOf("?");
+                int question = link.indexOf('?');
                 if (question > 0)
                     link = link.substring(0, question);
                 int comma = link.lastIndexOf(".");

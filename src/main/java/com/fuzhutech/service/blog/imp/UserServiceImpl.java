@@ -49,7 +49,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             if(list.isEmpty())
                 return false;
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error("验证token:[{}]过程中发生错误:{}",token,e.getMessage());
             return false;
         }
 
