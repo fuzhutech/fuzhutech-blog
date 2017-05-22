@@ -1,6 +1,6 @@
 package com.fuzhutech.controller.blog;
 
-import com.baidu.ueditor.ActionEnter;
+import com.fuzhutech.ueditor.ActionEnter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
