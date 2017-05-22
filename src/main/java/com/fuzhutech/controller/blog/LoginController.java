@@ -4,7 +4,6 @@ import com.fuzhutech.common.ResponseResult;
 import com.fuzhutech.pojo.blog.User;
 import com.fuzhutech.service.blog.UserService;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class LoginController {
     //登录
     @RequestMapping(value = "/login", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseResult login(@RequestBody User model/*,HttpServletRequest request*/) {
+    public ResponseResult login(@RequestBody User model) {
 
         try {
             if (model.getLoginName().isEmpty())
@@ -36,12 +35,12 @@ public class LoginController {
             if (model.getPassword().isEmpty())
                 return new ResponseResult(ResponseResult.FAILURE, null, "密码不正确");
 
-            model.setPassword(EncoderByMd5(model.getPassword()));
+            model.setPassword(encoderByMd5(model.getPassword()));
             logger.info("加密后密码：" + model.getPassword());
 
             List<User> userList = uerService.queryListByWhere(model);
-            if (userList.size() == 0) {
-                logger.info("userList.size() == 0");
+            if (userList.isEmpty()) {
+                logger.warn("登录过程中用户名或密码错误,LoginName:{},Password:{}", model.getLoginName(), model.getPassword());
                 return new ResponseResult(ResponseResult.FAILURE, null, "用户名或密码不正确");
             }
             User user = userList.get(0);
@@ -60,48 +59,37 @@ public class LoginController {
             return new ResponseResult(ResponseResult.SUCCESS, user);
 
         } catch (Exception ex) {
-            logger.info("发生错误：{}",ex.getMessage());
+            logger.warn("登录过程中发生异常：{}", ex.getMessage());
             return new ResponseResult(ResponseResult.FAILURE, null, ex.getMessage());
         }
     }
 
     //对字符串md5加密
-    private String EncoderByMd5(String value) throws Exception {
-        try {
-            //确定计算方法,生成一个MD5加密计算摘要
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            return Base64.encodeBase64String(md.digest(value.getBytes()));
-        } catch (NoSuchAlgorithmException e) {
-            throw new Exception("MD5加密出现错误");
-        }
+    private String encoderByMd5(String value) throws Exception {
+        //确定计算方法,生成一个MD5加密计算摘要
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        return Base64.encodeBase64String(md.digest(value.getBytes()));
     }
 
     //退出
     @RequestMapping(value = "/logout", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseResult logout(@RequestBody User model/*,HttpServletRequest request*/) {
-        try {
-            //如果已经登录，则退出
-            //uerService.update(model);
-            return new ResponseResult(ResponseResult.SUCCESS);
-        } catch (RuntimeException ex) {
-            return new ResponseResult(ResponseResult.FAILURE, null, ex.getMessage());
-        }
+    public ResponseResult logout(@RequestBody User model) {
+        logger.info("用户登出:LoginName:{},NickName:{}",model.getLoginName(),model.getNickName());
+        return new ResponseResult(ResponseResult.SUCCESS);
     }
 
     //修改密码
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseResult modifyPassword(@RequestBody User model/*,HttpServletRequest request*/) {
+    public ResponseResult modifyPassword(@RequestBody User model) {
         try {
-            //如果已经登录，则允许修改
-
-            model.setPassword(EncoderByMd5(model.getPassword()));
-            logger.info("修改后加密密码：" + model.getPassword());
-
+            //TODO:改为验证原始密码成功后，才允许修改成新密码
+            model.setPassword(encoderByMd5(model.getPassword()));
             uerService.update(model);
             return new ResponseResult(ResponseResult.SUCCESS);
         } catch (Exception ex) {
+            logger.warn("LoginName:{},NickName:{},修改密码过程中发生异常：{}", model.getLoginName(),model.getNickName(),ex.getMessage());
             return new ResponseResult(ResponseResult.FAILURE, null, ex.getMessage());
         }
     }

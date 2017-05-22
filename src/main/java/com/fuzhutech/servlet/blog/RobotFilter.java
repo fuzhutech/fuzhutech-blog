@@ -1,5 +1,6 @@
 package com.fuzhutech.servlet.blog;
 
+
 import com.fuzhutech.util.blog.UserAgentUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,11 +17,12 @@ public class RobotFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        UserAgentUtils.initCustomizeAgents(null);
+        //
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
         String url = req.getRequestURL().toString();
@@ -53,7 +55,7 @@ public class RobotFilter implements Filter {
         }
 
         //sitemap.xml
-        if(StringUtils.equals(uri,"/sitemap.xml")){
+        if (StringUtils.equals(uri, "/sitemap.xml")) {
             req.getRequestDispatcher("/view/sitemap.xml").forward(request, response);
             return;
         }
@@ -62,8 +64,8 @@ public class RobotFilter implements Filter {
         //Content-Type:application/json;charset=UTF-8
         //解决历史遗留文章链接问题
         if (StringUtils.startsWith(uri, "/posts/")) {
-            String id = StringUtils.substring(uri, StringUtils.length("/posts/")).replace("/","");
-            logger.info("id:{}",id);
+            String id = StringUtils.substring(uri, StringUtils.length("/posts/")).replace("/", "");
+            logger.info("id:{}", id);
             String redirectId = null;
             if (StringUtils.equals(id, "6")) {
                 redirectId = "1";
@@ -75,17 +77,17 @@ public class RobotFilter implements Filter {
                 redirectId = "4";
             } else if (StringUtils.equals(id, "25")) {
                 redirectId = "5";
-            }else if (StringUtils.equals(id, "26")) {
+            } else if (StringUtils.equals(id, "26")) {
                 redirectId = "6";
             } else if (StringUtils.equals(id, "27")) {
                 redirectId = "8";
             } else if (StringUtils.equals(id, "29")) {
                 redirectId = "10";
             }
-            logger.info("redirectId:{}",redirectId);
+            logger.info("redirectId:{}", redirectId);
             if (redirectId != null) {
                 String redirectUrl = "/p/" + redirectId;
-                logger.info("redirectId:{},redirectUrl:{}",redirectId,redirectUrl);
+                logger.info("redirectId:{},redirectUrl:{}", redirectId, redirectUrl);
                 ((HttpServletResponse) response).sendRedirect(redirectUrl);
                 return;
             }
@@ -104,14 +106,14 @@ public class RobotFilter implements Filter {
      */
     private boolean isTextRequest(HttpServletRequest request) {
         String uri = request.getRequestURI();
-        int p = uri.lastIndexOf("/");
+        int p = uri.lastIndexOf('/');
         // requst for site default page
         if (p < 0) {
             return true;
         }
 
         String file = uri.substring(p + 1);
-        p = file.indexOf(".");
+        p = file.indexOf('.');
         // without extention, usually is a html request
         if (p < 0) {
             return true;

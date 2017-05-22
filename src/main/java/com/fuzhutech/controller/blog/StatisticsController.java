@@ -23,18 +23,19 @@ public class StatisticsController {
     private static Logger logger = LoggerFactory.getLogger(StatisticsController.class);
 
     private PostService postService;
+    private CommentService commentService;
+    private OptionService optionService;
+
     @Autowired
     public void setPostService(PostService postService) {
         this.postService = postService;
     }
 
-    private CommentService commentService;
     @Autowired
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
 
-    private OptionService optionService;
     @Autowired
     public void setOptionService(OptionService optionService) {
         this.optionService = optionService;
@@ -53,7 +54,7 @@ public class StatisticsController {
         Options options = new Options();
         options.setName("totalAccess");
         List<Options> list = optionService.queryListByWhere(options);
-        if (list.size() > 0){
+        if (!list.isEmpty()){
             Options result = list.get(0);
             stat.setTotalAccess(Integer.parseInt(result.getValue()));
         }

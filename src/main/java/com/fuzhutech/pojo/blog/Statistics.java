@@ -1,7 +1,5 @@
 package com.fuzhutech.pojo.blog;
 
-import java.util.Date;
-
 public class Statistics {
     private Integer totalPosts;
     private Integer totalAccess;

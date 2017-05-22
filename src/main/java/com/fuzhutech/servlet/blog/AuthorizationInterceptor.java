@@ -28,10 +28,10 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         String method = request.getMethod();
 
         if(uri.startsWith("/api/posts")){
-            if(!method.equals("GET"))
+            if(!("GET").equals(method))
                 return checkToken(request,response,handler);
         }else if (uri.startsWith("/api/comments")){
-            if(method.equals("DELETE"))
+            if(("DELETE").equals(method))
                 return checkToken(request,response,handler);
         }
 
