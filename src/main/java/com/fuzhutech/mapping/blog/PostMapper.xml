@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fuzhutech.dao.blog.PostMapper">
-  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.Post">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.entity.blog.Post">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="excerpt" jdbcType="VARCHAR" property="excerpt" />
@@ -16,7 +16,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fuzhutech.pojo.blog.Post">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fuzhutech.entity.blog.Post">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -38,7 +38,7 @@
     delete from blog_post
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.Post">
+  <insert id="insert" parameterType="com.fuzhutech.entity.blog.Post">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -53,7 +53,7 @@
       #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Post">
+  <insert id="insertSelective" parameterType="com.fuzhutech.entity.blog.Post">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -141,7 +141,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.Post">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.entity.blog.Post">
     update blog_post
     <set>
       <if test="title != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fuzhutech.pojo.blog.Post">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fuzhutech.entity.blog.Post">
     update blog_post
     set title = #{title,jdbcType=VARCHAR},
       excerpt = #{excerpt,jdbcType=VARCHAR},
@@ -203,7 +203,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.Post">
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.entity.blog.Post">
     update blog_post
     set title = #{title,jdbcType=VARCHAR},
       excerpt = #{excerpt,jdbcType=VARCHAR},
@@ -235,7 +235,7 @@
   <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
     select count(id) count from blog_post
   </select>
-  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Post" resultMap="ResultMapWithBLOBs">
+  <select id="selectByWhere" parameterType="com.fuzhutech.entity.blog.Post" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
@@ -286,7 +286,7 @@
       </if>
     </trim>
   </select>
-  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.Post">
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.entity.blog.Post">
     delete from blog_post
     <where>
       <if test="id != null">
@@ -333,7 +333,7 @@
       </if>
     </where>
   </delete>
-  <update id="updateCount" parameterType="com.fuzhutech.pojo.blog.Post">
+  <update id="updateCount" parameterType="com.fuzhutech.entity.blog.Post">
     update blog_post
     <set>
       <if test="readCount != null">

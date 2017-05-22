@@ -2,7 +2,7 @@ package com.fuzhutech.service.blog.imp;
 
 
 import com.fuzhutech.common.service.impl.BaseServiceImpl;
-import com.fuzhutech.pojo.blog.User;
+import com.fuzhutech.entity.blog.User;
 import com.fuzhutech.service.blog.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;

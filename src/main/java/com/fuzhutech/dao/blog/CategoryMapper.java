@@ -1,7 +1,7 @@
 package com.fuzhutech.dao.blog;
 
 import com.fuzhutech.common.dao.BaseMapper;
-import com.fuzhutech.pojo.blog.Category;
+import com.fuzhutech.entity.blog.Category;
 
 public interface CategoryMapper extends BaseMapper<Category> {
 }

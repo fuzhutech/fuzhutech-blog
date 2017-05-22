@@ -1,7 +1,7 @@
 package com.fuzhutech.controller.blog;
 
-import com.fuzhutech.pojo.blog.Options;
-import com.fuzhutech.pojo.blog.Statistics;
+import com.fuzhutech.entity.blog.Options;
+import com.fuzhutech.entity.blog.Statistics;
 import com.fuzhutech.service.blog.CommentService;
 import com.fuzhutech.service.blog.OptionService;
 import com.fuzhutech.service.blog.PostService;

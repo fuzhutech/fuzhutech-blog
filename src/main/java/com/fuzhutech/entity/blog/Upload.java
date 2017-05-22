@@ -1,11 +1,15 @@
-package com.fuzhutech.pojo.blog;
+package com.fuzhutech.entity.blog;
 
 import java.util.Date;
 
-public class Comment {
+public class Upload {
     private Integer id;
 
     private Integer postId;
+
+    private String name;
+
+    private String path;
 
     private Integer userId;
 
@@ -13,15 +17,9 @@ public class Comment {
 
     private String userLoginName;
 
-    private String ip;
-
-    private String agent;
-
     private Date createTime;
 
-    private Integer status;
-
-    private String content;
+    private Date lastModifyTime;
 
     public Integer getId() {
         return id;
@@ -37,6 +35,22 @@ public class Comment {
 
     public void setPostId(Integer postId) {
         this.postId = postId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path == null ? null : path.trim();
     }
 
     public Integer getUserId() {
@@ -63,22 +77,6 @@ public class Comment {
         this.userLoginName = userLoginName == null ? null : userLoginName.trim();
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
-    }
-
-    public String getAgent() {
-        return agent;
-    }
-
-    public void setAgent(String agent) {
-        this.agent = agent == null ? null : agent.trim();
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -87,19 +85,11 @@ public class Comment {
         this.createTime = createTime;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Date getLastModifyTime() {
+        return lastModifyTime;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
     }
 }

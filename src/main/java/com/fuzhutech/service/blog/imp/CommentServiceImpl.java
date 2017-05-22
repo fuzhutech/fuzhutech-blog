@@ -3,7 +3,7 @@ package com.fuzhutech.service.blog.imp;
 
 import com.fuzhutech.common.service.impl.BaseServiceImpl;
 import com.fuzhutech.dao.blog.CommentMapper;
-import com.fuzhutech.pojo.blog.Comment;
+import com.fuzhutech.entity.blog.Comment;
 import com.fuzhutech.service.blog.CommentService;
 import org.springframework.stereotype.Service;
 

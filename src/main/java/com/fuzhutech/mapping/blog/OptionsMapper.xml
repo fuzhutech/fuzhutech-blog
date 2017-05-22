@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fuzhutech.dao.blog.OptionsMapper">
-  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.Options">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.entity.blog.Options">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="value" jdbcType="VARCHAR" property="value" />
@@ -19,14 +19,14 @@
     delete from blog_options
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.Options">
+  <insert id="insert" parameterType="com.fuzhutech.entity.blog.Options">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into blog_options (name, value)
     values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.Options">
+  <insert id="insertSelective" parameterType="com.fuzhutech.entity.blog.Options">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -48,7 +48,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.Options">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.entity.blog.Options">
     update blog_options
     <set>
       <if test="name != null">
@@ -60,7 +60,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.Options">
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.entity.blog.Options">
     update blog_options
     set name = #{name,jdbcType=VARCHAR},
       value = #{value,jdbcType=VARCHAR}
@@ -78,7 +78,7 @@
   <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
     select count(id) count from blog_options
   </select>
-  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.Options" resultMap="BaseResultMap">
+  <select id="selectByWhere" parameterType="com.fuzhutech.entity.blog.Options" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blog_options
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </select>
-  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.Options">
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.entity.blog.Options">
     delete from blog_options
     <where>
       <if test="id != null">

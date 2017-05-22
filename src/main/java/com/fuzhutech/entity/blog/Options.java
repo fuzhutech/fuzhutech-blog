@@ -1,4 +1,4 @@
-package com.fuzhutech.pojo.blog;
+package com.fuzhutech.entity.blog;
 
 public class Options {
     private Integer id;

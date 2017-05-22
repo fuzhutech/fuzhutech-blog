@@ -1,7 +1,7 @@
 package com.fuzhutech.controller.blog;
 
 import com.fuzhutech.common.ResponseResult;
-import com.fuzhutech.pojo.blog.User;
+import com.fuzhutech.entity.blog.User;
 import com.fuzhutech.service.blog.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 

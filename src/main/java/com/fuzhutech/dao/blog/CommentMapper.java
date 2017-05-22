@@ -1,7 +1,7 @@
 package com.fuzhutech.dao.blog;
 
 import com.fuzhutech.common.dao.BaseMapper;
-import com.fuzhutech.pojo.blog.Comment;
+import com.fuzhutech.entity.blog.Comment;
 
 public interface CommentMapper extends BaseMapper<Comment> {
 

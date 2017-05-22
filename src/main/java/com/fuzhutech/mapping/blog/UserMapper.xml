@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fuzhutech.dao.blog.UserMapper">
-  <resultMap id="BaseResultMap" type="com.fuzhutech.pojo.blog.User">
+  <resultMap id="BaseResultMap" type="com.fuzhutech.entity.blog.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
@@ -29,7 +29,7 @@
     delete from blog_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.fuzhutech.pojo.blog.User">
+  <insert id="insert" parameterType="com.fuzhutech.entity.blog.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -42,7 +42,7 @@
       #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{lastModifyTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.fuzhutech.pojo.blog.User">
+  <insert id="insertSelective" parameterType="com.fuzhutech.entity.blog.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.pojo.blog.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuzhutech.entity.blog.User">
     update blog_user
     <set>
       <if test="loginName != null">
@@ -157,7 +157,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.pojo.blog.User">
+  <update id="updateByPrimaryKey" parameterType="com.fuzhutech.entity.blog.User">
     update blog_user
     set login_name = #{loginName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
@@ -185,7 +185,7 @@
   <select id="countByPageInfo" parameterType="PageInfo" resultType="java.lang.Integer">
     select count(id) count from blog_user
   </select>
-  <select id="selectByWhere" parameterType="com.fuzhutech.pojo.blog.User" resultMap="BaseResultMap">
+  <select id="selectByWhere" parameterType="com.fuzhutech.entity.blog.User" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blog_user
@@ -228,7 +228,7 @@
       </if>
      </trim>
   </select>
-  <delete id="deleteByWhere" parameterType="com.fuzhutech.pojo.blog.User">
+  <delete id="deleteByWhere" parameterType="com.fuzhutech.entity.blog.User">
     delete from blog_user
     <where>
       <if test="id != null">

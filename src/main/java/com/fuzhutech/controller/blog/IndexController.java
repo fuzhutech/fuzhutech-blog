@@ -1,7 +1,7 @@
 package com.fuzhutech.controller.blog;
 
-import com.fuzhutech.pojo.blog.Comment;
-import com.fuzhutech.pojo.blog.Post;
+import com.fuzhutech.entity.blog.Comment;
+import com.fuzhutech.entity.blog.Post;
 import com.fuzhutech.service.blog.CommentService;
 import com.fuzhutech.service.blog.PostService;
 import org.dom4j.Document;

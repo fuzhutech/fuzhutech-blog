@@ -2,7 +2,7 @@ package com.fuzhutech.service.blog.imp;
 
 import com.fuzhutech.common.service.impl.BaseServiceImpl;
 import com.fuzhutech.dao.blog.PostMapper;
-import com.fuzhutech.pojo.blog.Post;
+import com.fuzhutech.entity.blog.Post;
 import com.fuzhutech.service.blog.PostService;
 import com.fuzhutech.util.blog.JsoupUtils;
 import org.springframework.stereotype.Service;

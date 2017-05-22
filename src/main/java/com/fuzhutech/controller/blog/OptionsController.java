@@ -1,6 +1,6 @@
 package com.fuzhutech.controller.blog;
 
-import com.fuzhutech.pojo.blog.Options;
+import com.fuzhutech.entity.blog.Options;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
