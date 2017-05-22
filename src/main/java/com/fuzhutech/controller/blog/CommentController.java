@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/comments")
 public class CommentController extends BlogRestfulController<Comment> {
 
-    @Override
-    protected Integer getModelId(Comment model) {
-        return model.getId();
-    }
-
 }

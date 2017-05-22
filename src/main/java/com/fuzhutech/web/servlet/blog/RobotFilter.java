@@ -1,4 +1,4 @@
-package com.fuzhutech.servlet.blog;
+package com.fuzhutech.web.servlet.blog;
 
 
 import com.fuzhutech.util.blog.UserAgentUtils;

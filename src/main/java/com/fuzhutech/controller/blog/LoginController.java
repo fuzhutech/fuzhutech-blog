@@ -15,8 +15,7 @@ import java.util.List;
 
 // 登录退出
 @RestController
-//@RequestMapping("/login")
-public class LoginController {
+public class LoginController extends  BlogBaseController{
 
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 

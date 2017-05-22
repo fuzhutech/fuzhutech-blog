@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/options")
 public class OptionsController extends BlogRestfulController<Options> {
 
-  @Override
-  protected Integer getModelId(Options model) {
-    return model.getId();
-  }
-
 }

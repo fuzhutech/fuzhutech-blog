@@ -10,7 +10,7 @@
     </context-param>
     <!-- 注：此listener需在spring的ContextLoaderListener前  -->
     <listener>
-        <listener-class>com.fuzhutech.servlet.blog.InitApplicationListener</listener-class>
+        <listener-class>com.fuzhutech.web.servlet.blog.InitApplicationListener</listener-class>
     </listener>
     <!--listener spring 容器-->
     <listener>
@@ -58,7 +58,7 @@
     <!--蜘蛛程序访问检测-->
     <filter>
         <filter-name>RobotFilter</filter-name>
-        <filter-class>com.fuzhutech.servlet.blog.RobotFilter</filter-class>
+        <filter-class>com.fuzhutech.web.servlet.blog.RobotFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
@@ -104,7 +104,7 @@
     <!--本url-pattern扩展了RobotFilter拦截的范围，否则/p/1等请求报错;上述不拦截的请求，则由CustomServlet处理-->
     <servlet>
         <servlet-name>CustomServlet</servlet-name>
-        <servlet-class>com.fuzhutech.servlet.blog.CustomServlet</servlet-class>
+        <servlet-class>com.fuzhutech.web.servlet.blog.CustomServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomServlet</servlet-name>

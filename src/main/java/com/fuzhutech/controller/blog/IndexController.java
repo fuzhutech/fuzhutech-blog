@@ -29,7 +29,7 @@ import java.util.List;
 
 //返回jsp视图
 @Controller
-public class IndexController {
+public class IndexController extends BlogBaseController{
 
     private Logger logger = LoggerFactory.getLogger(IndexController.class);
 

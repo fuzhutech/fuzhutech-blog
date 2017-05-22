@@ -17,7 +17,6 @@ import java.util.List;
 
 // 文章评论
 @RestController
-//@RequestMapping("/login")
 public class StatisticsController {
 
     private static Logger logger = LoggerFactory.getLogger(StatisticsController.class);

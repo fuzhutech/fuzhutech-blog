@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categorys")
 public class CategoryController extends BlogRestfulController<Category> {
 
-  @Override
-  protected Integer getModelId(Category model) {
-    return model.getId();
-  }
-
 }

@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/posts")
 public class PostController extends BlogRestfulController<Post> {
 
-  /*@Override
-  protected Integer getModelId(Post model) {
-    return model.getId();
-  }*/
-
 }

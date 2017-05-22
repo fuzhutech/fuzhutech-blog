@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController extends BlogRestfulController<User> {
 
-  @Override
-  protected Integer getModelId(User model) {
-    return model.getId();
-  }
-
 }

@@ -25,7 +25,7 @@
     <property name="plugins">
       <array>
         <!-- sql性能监控插件，实际生产环境不建议使用 -->
-        <bean class="com.fuzhutech.common.plugin.PerformanceInterceptor" />
+        <bean class="com.fuzhutech.common.plugin.ibatis.PerformanceInterceptor" />
       </array>
     </property>
   </bean>

@@ -9,9 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/uploads")
 public class UploadController extends BlogRestfulController<Upload> {
 
-  @Override
-  protected Integer getModelId(Upload model) {
-    return model.getId();
-  }
-
 }
