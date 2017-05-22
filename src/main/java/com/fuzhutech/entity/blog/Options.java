@@ -1,6 +1,8 @@
 package com.fuzhutech.entity.blog;
 
-public class Options {
+import com.fuzhutech.common.entity.BaseEntity;
+
+public class Options implements BaseEntity {
     private Integer id;
 
     private String name;

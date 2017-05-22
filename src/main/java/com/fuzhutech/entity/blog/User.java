@@ -1,8 +1,10 @@
 package com.fuzhutech.entity.blog;
 
+import com.fuzhutech.common.entity.BaseEntity;
+
 import java.util.Date;
 
-public class User {
+public class User implements BaseEntity {
     private Integer id;
 
     private String loginName;

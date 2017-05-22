@@ -1,8 +1,10 @@
 package com.fuzhutech.entity.blog;
 
+import com.fuzhutech.common.entity.BaseEntity;
+
 import java.util.Date;
 
-public class Category {
+public class Category implements BaseEntity {
     private Integer id;
 
     private String name;
