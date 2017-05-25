@@ -36,7 +36,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="com.fuzhutech.pojo.blog" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.fuzhutech.entity.blog" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
             <property name="rootInterface" value="com.fuzhutech.common.entity.BaseEntity"/>
