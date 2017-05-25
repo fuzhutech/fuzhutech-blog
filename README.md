@@ -1,5 +1,5 @@
 # fuzhutech-blog
-这是ng2-fuzhutech-blog的后台程序，前端的ng2-fuzhutech-blog在这里：https://github.com/fuzhutech/ng2-fuzhutech-blog
+个人开发的博客，前端[ng2-fuzhutech-blog](https://github.com/fuzhutech/ng2-fuzhutech-blog)采用angualr2 + ng2-Bootstrap实现，后端[fuzhutech-blog](https://github.com/fuzhutech/fuzhutech-blog)基于Spring+SpringMVC+Mybatis架构.
 
 ## 技术选型
 #### 后端
