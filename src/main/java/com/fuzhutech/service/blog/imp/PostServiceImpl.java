@@ -59,8 +59,8 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements PostServic
     }
 
     //更新增加点击量、评论量，不更新修改时间
-    public Integer updateCount(Post record) {
-        return ((PostMapper)this.mapper).updateCount(record);
+    public Integer updateIncreaseCount(Post record) {
+        return ((PostMapper)this.mapper).updateIncreaseCount(record);
     }
 
 }

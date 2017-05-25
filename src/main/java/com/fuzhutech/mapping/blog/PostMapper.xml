@@ -333,7 +333,7 @@
       </if>
     </where>
   </delete>
-  <update id="updateCount" parameterType="com.fuzhutech.entity.blog.Post">
+  <update id="updateIncreaseCount" parameterType="com.fuzhutech.entity.blog.Post">
     update blog_post
     <set>
       <if test="readCount != null">

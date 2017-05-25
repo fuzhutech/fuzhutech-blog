@@ -27,7 +27,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
         String method = request.getMethod();
 
-        if(uri.startsWith("/api/posts")){
+        if(uri.startsWith("/api/posts") && (!uri.startsWith("/api/posts/updateIncreaseCount"))){
             if(!("GET").equals(method))
                 return checkToken(request,response,handler);
         }else if (uri.startsWith("/api/comments")){
