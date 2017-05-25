@@ -20,9 +20,9 @@
     </div>
 </div>
 
-<div id="description">
+<!--div id="description">
     <a href=".">扶竹技术 - www.fuzhutech.com</a>用以记录学习和成长的地方，着力于保险公司、保险资产管理公司投资业务系统的学习研究,尤其关注投资清算、估值核算、系统运维方面......
-</div>
+</div-->
 
 <!-- 主体内容区域 -->
 <div class="container main-container">
