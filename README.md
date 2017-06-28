@@ -12,5 +12,10 @@
 * ng2-Bootstrap
 * UEditor 百度富文本编辑器
 
+## 默认信息
+* 登录地址 http://localhost/login
+* 用户名 admin
+* 密  码 12345678
+
 ## 展示博客
   (http://www.fuzhutech.com)
