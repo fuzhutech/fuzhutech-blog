@@ -22,6 +22,16 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements PostServic
         Date date = new Date();
         record.setCreateTime(date);
         record.setLastModifyTime(date);
+        //设置默认值
+        if (record.getReadCount() == null){
+            record.setReadCount(0);
+        }
+        if (record.getCommentCount() == null){
+            record.setCommentCount(0);
+        }
+        if (record.getEnableComment() == null){
+            record.setEnableComment(1);
+        }
 
         return this.mapper.insert(record);
     }
